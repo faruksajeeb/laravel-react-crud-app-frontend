@@ -4,28 +4,41 @@ import { AiFillApi,AiOutlineDashboard,AiFillBug  } from "react-icons/ai";
 import { CiSettings } from "react-icons/ci";
 import { MdForwardToInbox } from "react-icons/md";
 import { SiPowerpages } from "react-icons/si";
+import { GrUserManager } from "react-icons/gr";
+import { FaCriticalRole,FaUsers } from "react-icons/fa";
+import { FcApproval } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     const [sidebarOpen,setSidebarOpen] = useState(true);
     const [submenuOpen,setSubmenuOpen] = useState(true);
     const Menus = [
-      {title:"Dashboard"},
-      {title:"Pages",icon:<SiPowerpages/>},
-      {title:"Medias",spacing:true},
+      {title:"Dashboard",to:''},
+      {title:"Pages",icon:<SiPowerpages/>,to:''},
+      {title:"Medias",spacing:true,to:''},
       {
-        title:"Projects",
+        title:"Projects",to:'',
         submenu:true,
         submenuItems:[
-          {title:'Submenu 1',icon:<AiFillBug/>},
-          {title:'Submenu 1',icon:<AiFillBug/>},
-          {title:'Submenu 1',icon:<AiFillBug/>},
+          {title:'Submenu 1',icon:<AiFillBug/>,to:''},
+          {title:'Submenu 1',icon:<AiFillBug/>,to:''},
+          {title:'Submenu 1',icon:<AiFillBug/>,to:''},
         ]
       },
-      {title:"Analysis"},
-      {title:"Inbox",icon:<MdForwardToInbox/>},
-      {title:"Profile",spacing:true},
-      {title:"Settings",icon:<CiSettings/> },
-      {title:"Logout"}
+      {
+        title:"User Management",to:'',icon:<GrUserManager/>,
+        submenu:true,
+        submenuItems:[
+          {title:'Users',icon:<FaUsers/>,to:'/users'},
+          {title:'Roles',icon:<FaCriticalRole/>,to:''},
+          {title:'Permissions',icon:<FcApproval/>,to:''},
+        ]
+      },
+      {title:"Analysis",to:''},
+      {title:"Inbox",icon:<MdForwardToInbox/>,to:''},
+      {title:"Profile",spacing:true,to:''},
+      {title:"Settings",icon:<CiSettings/>,to:'' },
+      {title:"Logout",to:''}
     ]
   return (
     <div className="flex">
@@ -50,14 +63,14 @@ const Sidebar = () => {
           Menus.map((menu,index)=>(
             <>
               <li key={index} className={`flex text-gray-300 text-sm item-center gap-x-3 cursor-pointer p-2 px-4 hover:bg-white hover:text-purple-800 duration-300 ${menu.spacing ? 'mt-6':''}`}>
-                <span className={`text-3xl block float-left`}>
+                <span  className={`text-3xl block float-left`}>
                   {
                     menu.icon ? menu.icon : <AiOutlineDashboard/>
                   }                  
                   </span>
-                <span className={`text-base font-medium flex flex-1 duration-200 ${!sidebarOpen && 'hidden'}`}>
+                <Link to={!menu.submenu ? menu.to : '#'} className={`text-base font-medium flex flex-1 duration-200 ${!sidebarOpen && 'hidden'}`}>
                   {menu.title}                  
-                  </span> 
+                  </Link> 
                   {
                   menu.submenu && sidebarOpen && (
                     <FaAngleDown className={`float-right duration-200 text-xl ${submenuOpen && 'rotate-180'}`} onClick={()=>setSubmenuOpen(!submenuOpen)} />
@@ -69,14 +82,14 @@ const Sidebar = () => {
                     <ul className="duration-200">
                       {
                     menu.submenuItems.map((submenuItem,index)=>(
-                      <li className={`flex text-gray-300 text-sm item-center gap-x-3 cursor-pointer p-2 pl-12 hover:bg-white hover:text-purple-800 duration-300 ${menu.spacing ? 'mt-9':''}`} key={index}>
-                        <span className={`text-3xl block float-left`}>
-                  {
-                    submenuItem.icon ? submenuItem.icon : <AiOutlineDashboard/>
-                  }                  
-                  </span>
-                        <span>{submenuItem.title}</span>
-                        </li>
+                        <Link to={submenuItem.to} className={`flex text-gray-300 text-sm item-center gap-x-3 cursor-pointer p-2 pl-12 hover:bg-white hover:text-purple-800 duration-300 ${menu.spacing ? 'mt-9':''}`} key={index}>
+                                <span className={`text-3xl block float-left`}>
+                          {
+                            submenuItem.icon ? submenuItem.icon : <AiOutlineDashboard/>
+                          }                  
+                          </span>
+                          <span  >{submenuItem.title}</span>
+                        </Link>
                     ))}
                     </ul>
                   )

@@ -3,6 +3,7 @@ import { FaSearch,FaUserCircle,FaAngleDown } from "react-icons/fa";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
 import LoadingSpinner from "./LoadingSpinner";
+import { LiaSignOutAltSolid } from "react-icons/lia";
 
 const Header = () => {
   const [loading, setLoading] = useState(false);
@@ -209,14 +210,14 @@ const Header = () => {
                     </a>
                     <button
                       href="#"
-                      className={`block px-4 py-2 text-sm text-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`flex block px-4 py-2 text-sm text-gray-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-2"
                       onClick={onLogout}
                       disabled={loading}
                     >
-                      {loading && <LoadingSpinner />} 
+                      {loading ? <LoadingSpinner className="text-md" /> : <LiaSignOutAltSolid className="text-lg"/>} 
                       {loading ? 'Signing Out...':'Sign Out'}
                     </button>
                   </div>

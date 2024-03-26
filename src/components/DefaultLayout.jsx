@@ -21,7 +21,7 @@ const DefaultLayout = () => {
         <header>
           <Header user={user}/>
         </header>
-        <main>
+        <main className="p-2">
         <Outlet/>
         </main>
       </div>

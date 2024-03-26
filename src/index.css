@@ -11,5 +11,15 @@ body {
     background-color: #f6f6f6;
 }
 
+/* DataTable.css */
+.table-container {
+    opacity: 1;
+    transition: opacity 0.9s ease-in-out;
+}
+
+.table-container.loading {
+    opacity: 0;
+}
+
 
 
